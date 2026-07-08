@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Optiically Your's — Curating the world's most exquisite eyewear. Precision medical care wrapped in high-fashion aesthetics.">
+  <title>Optiically Your's | Vision Meets Elegance</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ======== NAVIGATION ======== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo"><img src="images/logo.png?v=1" alt="Optiically Your's"></a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="products.html">Products</a>
+        <a href="services.html">Services</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <div class="nav-toggle">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== HERO ======== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content fade-in-left">
+        <p style="font-family: var(--font-serif); font-weight: 800; font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1.05; color: var(--gold); margin-bottom: var(--space-md);">Optiically Your's</p>
+        <p class="hero-label">Collection 2024</p>
+        <h1 class="hero-title">
+          <span style="color: #1a1a1a;">Vision M<span style="color: #002683;">eets</span></span><br>
+          <span class="highlight">Elegance.</span>
+        </h1>
+        <p class="hero-description">
+          Where every Eye gets their Personal Care
+        </p>
+        <div class="hero-buttons">
+          <a href="products.html" class="btn btn-primary">Explore Collection</a>
+          <a href="contact.html" class="btn btn-outline">Contact Us</a>
+        </div>
+      </div>
+      <div class="hero-visual fade-in-right">
+        <div class="hero-image hero-slideshow">
+          <img src="images/hero.png?v=1" alt="Optiically Your's store interior" class="hero-slide is-active">
+          <img src="images/hero2.png?v=2" alt="Optiically Your's Drishti Ratna award recognition" class="hero-slide">
+          <img src="images/hero3.png?v=1" alt="Optiically Your's Drishti Ratna Certificate of Honour from Bonzer Lenses" class="hero-slide">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <script src="js/main.js"></script>
+  <style>
+    .hero-slideshow { position: relative; }
+    .hero-slideshow .hero-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s var(--ease);
+    }
+    .hero-slideshow .hero-slide.is-active { opacity: 1; }
+  </style>
+  <script>
+    (function () {
+      const slides = document.querySelectorAll('.hero-slideshow .hero-slide');
+      if (slides.length < 2) return;
+      let i = 0;
+      setInterval(function () {
+        slides[i].classList.remove('is-active');
+        i = (i + 1) % slides.length;
+        slides[i].classList.add('is-active');
+      }, 3500);
+    })();
+  </script>
+</body>
+</html>
+
+<style id="__om-edit-overrides">
+:is(h1,h2,h3,h4,h5,h6) >span:nth-child(1) { color: rgb(0, 36, 126) !important }
+:is(h1,h2,h3,h4,h5,h6) >span:nth-child(1) { color: rgb(0, 17, 126) !important }
+:is(h1,h2,h3,h4,h5,h6) >span:nth-child(1) { color: rgb(0, 15, 111) !important }
+:is(h1,h2,h3,h4,h5,h6) >span:nth-child(1) { color: rgb(9, 26, 137) !important }
+</style>

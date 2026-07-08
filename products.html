@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Optiically Your's Products — Browse our curated collection of premium eyewear, sunglasses, and designer frames.">
+  <title>Products | Optiically Your's</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ======== NAVIGATION ======== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo"><img src="images/logo.png?v=1" alt="Optiically Your's"></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="services.html">Services</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <div class="nav-toggle">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== PRODUCTS HERO ======== -->
+  <section class="products-hero">
+    <div class="container">
+      <p class="section-label fade-in">The Collection</p>
+      <h1 class="section-title fade-in" style="font-size: clamp(2.4rem, 4.5vw, 3.2rem);">Curated Eyewear</h1>
+      <p class="section-subtitle fade-in">Handpicked frames from the world's finest designers. Each piece is selected for its character, craftsmanship, and comfort.</p>
+
+      <div class="filter-stack fade-in">
+        <div class="products-filters audience-filters" data-group="audience">
+          <button class="filter-btn active" data-filter="men">Men</button>
+          <button class="filter-btn" data-filter="women">Women</button>
+          <button class="filter-btn" data-filter="kids">Kids</button>
+          <button class="filter-btn" data-toggle="brands">Brands</button>
+        </div>
+
+        <div class="products-filters brand-filters" id="brand-filters" data-group="brand" hidden>
+          <button class="filter-btn" data-filter="lenses">Lenses</button>
+          <button class="filter-btn" data-filter="frames">Frames</button>
+        </div>
+
+        <div class="products-filters category-filters" data-group="category">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="optical">Optical</button>
+          <button class="filter-btn" data-filter="sunglasses">Sunglasses</button>
+          <button class="filter-btn" data-filter="designer">Designer</button>
+          <button class="filter-btn" data-filter="sports">Sports</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== PRODUCT GRID ======== -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="products-grid">
+        <div class="product-card fade-in" data-audience="men" data-category="optical" data-delay="0">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/men-optical-1.png" alt="Men's optical frame" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="optical" data-delay="100">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/men-optical-2.png" alt="Men's optical frame" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="optical" data-delay="200">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/men-optical-3.png" alt="Men's optical frame" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="sunglasses" data-delay="0">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/men-sunglasses-1.png?v=2" alt="Men's sunglasses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="sunglasses" data-delay="100">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/men-sunglasses-2.png?v=2" alt="Men's sunglasses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="sunglasses" data-delay="200">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/men-sunglasses-3.png?v=3" alt="Men's sunglasses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="designer" data-delay="0">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/men-designer-1.png');"><img src="images/men-designer-1.png" alt="Men's designer eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="designer" data-delay="100">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/men-designer-2.png');"><img src="images/men-designer-2.png" alt="Men's designer eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="designer" data-delay="200">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/men-designer-3.png');"><img src="images/men-designer-3.png" alt="Men's designer eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="sports" data-delay="0">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/men-sports-1.png');"><img src="images/men-sports-1.png" alt="Men's sports eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="sports" data-delay="100">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/men-sports-2.png');"><img src="images/men-sports-2.png" alt="Men's sports eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="men" data-category="sports" data-delay="200">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/men-sports-3.png');"><img src="images/men-sports-3.png" alt="Men's sports eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="optical" data-delay="0">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-optical-1.png');"><img src="images/women-optical-1.png" alt="Women's optical eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="optical" data-delay="100">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-optical-2.png');"><img src="images/women-optical-2.png" alt="Women's optical eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="optical" data-delay="200">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-optical-3.webp');"><img src="images/women-optical-3.webp" alt="Women's optical eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="sunglasses" data-delay="0">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-sunglasses-1.png');"><img src="images/women-sunglasses-1.png" alt="Women's sunglasses"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="sunglasses" data-delay="100">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-sunglasses-2.png');"><img src="images/women-sunglasses-2.png" alt="Women's sunglasses"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="sunglasses" data-delay="200">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-sunglasses-3.png');"><img src="images/women-sunglasses-3.png" alt="Women's sunglasses"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="designer" data-delay="0">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-designer-1.png');"><img src="images/women-designer-1.png" alt="Women's designer eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="designer" data-delay="100">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-designer-2.png');"><img src="images/women-designer-2.png" alt="Women's designer eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="designer" data-delay="200">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-designer-3.png');"><img src="images/women-designer-3.png" alt="Women's designer eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="sports" data-delay="0">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-sports-1.png');"><img src="images/women-sports-1.png" alt="Women's sports eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="sports" data-delay="100">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-sports-2.png');"><img src="images/women-sports-2.png" alt="Women's sports eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="women" data-category="sports" data-delay="200">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/women-sports-3.png');"><img src="images/women-sports-3.png" alt="Women's sports eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="kids" data-category="optical" data-delay="0">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/kids-optical-1.png');"><img src="images/kids-optical-1.png" alt="Kids' optical eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="kids" data-category="optical" data-delay="100">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/kids-optical-2.png');"><img src="images/kids-optical-2.png" alt="Kids' optical eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="kids" data-category="optical" data-delay="200">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/kids-optical-3.png');"><img src="images/kids-optical-3.png" alt="Kids' optical eyewear"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="kids" data-category="sunglasses" data-delay="0">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/kids-sunglasses-1.png');"><img src="images/kids-sunglasses-1.png" alt="Kids' sunglasses"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="kids" data-category="sunglasses" data-delay="100">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/kids-sunglasses-2.png');"><img src="images/kids-sunglasses-2.png" alt="Kids' sunglasses"></div>
+        </div>
+        <div class="product-card fade-in" data-audience="kids" data-category="sunglasses" data-delay="200">
+          <div class="product-image img-placeholder blur-fill" style="--bg: url('images/kids-sunglasses-3.png');"><img src="images/kids-sunglasses-3.png" alt="Kids' sunglasses"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="lenses" data-delay="0">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/lens-zeiss.png" alt="ZEISS lenses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="lenses" data-delay="100">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/lens-hoya-2.png" alt="HOYA lenses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="lenses" data-delay="200">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/lens-essilor-2.png" alt="Essilor lenses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="lenses" data-delay="0">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/lens-alcon.png" alt="Alcon lenses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="lenses" data-delay="100">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/lens-coopervision.png" alt="CooperVision lenses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="lenses" data-delay="200">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/lens-seed.png" alt="SEED lenses" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="0">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-idee.avif" alt="IDEE Eyewear" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="100">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-irus.png" alt="IRUS Eyewear" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="200">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-zoemiller.png" alt="Zoe Miller" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="0">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-pavarotti.svg" alt="Pavarotti" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="100">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-germanogambini-2.png" alt="Germano Gambini Eyewear" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="200">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-masakimatsushima.png" alt="Masaki Matsushima Eyes" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="0">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-mango.png" alt="MANGO Eyewear" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="100">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-greyjack.png" alt="Grey Jack" style="object-fit: contain;"></div>
+        </div>
+        <div class="product-card fade-in" data-brand="frames" data-delay="200">
+          <div class="product-image img-placeholder" style="background: var(--white);"><img src="images/frame-para.png" alt="PARA" style="object-fit: contain;"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
