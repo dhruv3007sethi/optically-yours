@@ -6,6 +6,39 @@
   <meta name="description" content="Optiically Your's Offers — Exclusive rewards, seasonal promotions, referral bonuses, and available vouchers for premium eyewear.">
   <title>Offers | Optiically Your's</title>
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    #offers-list.promo-grid { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) {
+      #offers-list.promo-grid { grid-template-columns: 1fr; }
+    }
+    .promo-card { cursor: pointer; position: relative; }
+    .offer-admin-remove {
+      display: none; position: absolute; top: 8px; right: 8px; z-index: 5;
+      background: #C0392B; color: #fff; border: none; border-radius: 4px;
+      padding: 3px 9px; font-size: 12px; cursor: pointer;
+    }
+    body.admin-edit-mode .offer-admin-remove { display: inline-block; }
+    .offer-card-header { display: flex; justify-content: space-between; align-items: center; gap: var(--space-md); }
+    .offer-card-header h3 { margin: 0; }
+
+    .offer-modal-overlay {
+      display: none;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+      z-index: 1000; align-items: center; justify-content: center; padding: var(--space-md);
+    }
+    .offer-modal-overlay.is-open { display: flex; }
+    .offer-modal {
+      background: var(--white); border-radius: var(--radius-lg);
+      max-width: 520px; width: 100%; max-height: 85vh; overflow-y: auto;
+      padding: var(--space-xl); position: relative;
+    }
+    .offer-modal img { width: 100%; max-height: 280px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: var(--space-md); }
+    .offer-modal-close {
+      position: absolute; top: var(--space-md); right: var(--space-md);
+      background: none; border: none; font-size: 1.6rem; line-height: 1;
+      cursor: pointer; color: var(--gray-600);
+    }
+  </style>
 </head>
 <body>
 
@@ -20,6 +53,7 @@
         <a href="services.html">Services</a>
         <a href="blogs.html">Blogs</a>
         <a href="contact.html">Contact</a>
+        <a href="offers.html" class="active">Offers</a>
       </div>
       <div class="nav-actions">
         <div class="nav-toggle">
@@ -30,133 +64,93 @@
   </nav>
 
   <!-- ======== OFFERS HERO ======== -->
-  <section class="offers-hero">
+  <section class="products-hero">
     <div class="container">
-      <div class="fade-in-left">
-        <p class="section-label">Exclusive Rewards</p>
-        <h1 class="offers-hero-title">
-          The Visionary<br><span class="gold">Advantage</span>
-        </h1>
-      </div>
-      <div class="fade-in-right">
-        <p class="section-subtitle">Curated savings for the discerning eye. Our offers combine the precision of clinical care with the luxury of high-end eyewear.</p>
-      </div>
+      <h1 class="section-title fade-in" style="font-size: clamp(2.4rem, 4.5vw, 3.2rem);">Offers</h1>
     </div>
   </section>
 
-  <!-- ======== PROMO CARDS ======== -->
+  <!-- ======== PROMO CARDS (loaded from data/offers.json) ======== -->
   <section class="section" style="padding-top: 0;">
     <div class="container">
-      <div class="promo-grid fade-in">
-        <!-- Image Card -->
-        <div class="promo-card promo-image img-placeholder" style="min-height: 280px;">
-          <span>Promo Image<br>(Add your photo here)</span>
-        </div>
-
-        <!-- Designer Double -->
-        <div class="promo-card">
-          <span class="promo-tag">Seasonal Curation</span>
-          <h3>The Designer Double</h3>
-          <p style="margin-top: var(--space-sm);">Purchase any pair of frames from our Designer Collection and receive a second pair of equal value, complimentary.</p>
-          <a href="products.html" class="btn btn-primary" style="margin-top: var(--space-xl);">Explore Frames</a>
-          <p class="promo-note">*Applicable on brands including Bvce, Prada, and Tom Ford.</p>
-        </div>
-
-        <!-- Clinical Precision -->
-        <div class="promo-card">
-          <div class="promo-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          </div>
-          <h3>Clinical Precision</h3>
-          <p>A complimentary comprehensive eye examination with any prescription frame purchase.</p>
-          <a href="contact.html" class="book-link">Book Appointment →</a>
-        </div>
-      </div>
-
-      <!-- Digital Shield -->
-      <div class="digi-shield fade-in">
-        <div class="shield-card">
-          <h4>Digital Shield</h4>
-          <p>Upgrade to Blue Light Blocking lenses for just $29 with any set of lenses.</p>
-          <div class="big-discount">50% OFF</div>
-        </div>
-      </div>
-
-      <!-- Referral -->
-      <div class="referral-section fade-in">
-        <div>
-          <h2>Share the Vision</h2>
-          <p>Refer a friend for their first visit and you'll both receive a $50 credit towards your next in-store purchase.</p>
-          <div class="referral-buttons">
-            <a href="#" class="btn btn-gold-outline">OPTICS_REF</a>
-            <a href="#" class="btn btn-outline" style="color: var(--white); border-color: var(--white);">Copy Link</a>
-          </div>
-        </div>
-        <div class="referral-icon">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-        </div>
-      </div>
+      <div class="promo-grid fade-in" id="offers-list"></div>
+      <p id="offers-empty" style="display:none; text-align:center; color: var(--gray-400);">No offers available right now — check back soon.</p>
     </div>
   </section>
 
-  <!-- ======== VOUCHERS ======== -->
-  <section class="section vouchers-section" style="padding-top: 0;">
-    <div class="container">
-      <h2 class="section-title fade-in">Available Vouchers</h2>
-      <p class="section-subtitle fade-in">Ready to use during your next visit.</p>
-
-      <div class="vouchers-grid">
-        <div class="voucher-card fade-in" data-delay="0">
-          <div class="voucher-icon">🔧</div>
-          <h4>Free Frame Adjustment</h4>
-          <p>Precision fitting and cleaning service. No appointment needed.</p>
-          <div class="voucher-meta">In-Store Only</div>
-        </div>
-        <div class="voucher-card fade-in" data-delay="100">
-          <div class="voucher-icon">👁️</div>
-          <h4>Contact Lens Trial</h4>
-          <p>First month supply free with annual subscription.</p>
-          <div class="voucher-meta">Code: LENSSTART</div>
-        </div>
-        <div class="voucher-card fade-in" data-delay="200">
-          <div class="voucher-icon">🎂</div>
-          <h4>Birthday Bonus</h4>
-          <p>Enjoy 15% off during your birth month.</p>
-          <div class="voucher-meta">Member Exclusive</div>
-        </div>
-      </div>
+  <!-- ======== OFFER MODAL ======== -->
+  <div class="offer-modal-overlay" id="offer-modal-overlay">
+    <div class="offer-modal">
+      <button class="offer-modal-close" id="offer-modal-close" aria-label="Close">&times;</button>
+      <img id="offer-modal-image" style="display:none;">
+      <h3 id="offer-modal-title"></h3>
+      <p id="offer-modal-description"></p>
     </div>
-  </section>
-
-  <!-- ======== WHY VISIT ======== -->
-  <section class="section why-visit">
-    <div class="container">
-      <h2 class="section-title fade-in">Why visit Optiically Your's?</h2>
-      <div class="why-visit-grid">
-        <div class="why-card fade-in" data-delay="0">
-          <div class="why-icon">✓</div>
-          <h4>Authenticity</h4>
-          <p>Guaranteed genuine designer brands from official sources.</p>
-        </div>
-        <div class="why-card fade-in" data-delay="100">
-          <div class="why-icon">👨‍⚕️</div>
-          <h4>Expert Care</h4>
-          <p>Every prescription checked by certified optometrists.</p>
-        </div>
-        <div class="why-card fade-in" data-delay="200">
-          <div class="why-icon">🛡️</div>
-          <h4>Satisfaction Guarantee</h4>
-          <p>We'll repair or replace your lenses if you're not perfectly satisfied.</p>
-        </div>
-        <div class="why-card fade-in" data-delay="300">
-          <div class="why-icon">👗</div>
-          <h4>In-Store Styling</h4>
-          <p>Personalized styling sessions to find your perfect fit.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <script src="js/main.js"></script>
+  <script src="js/admin-edit.js"></script>
+  <script>
+    (async function loadOffers() {
+      const listEl = document.getElementById('offers-list');
+      const emptyEl = document.getElementById('offers-empty');
+      const overlay = document.getElementById('offer-modal-overlay');
+      const modalImage = document.getElementById('offer-modal-image');
+      const modalTitle = document.getElementById('offer-modal-title');
+      const modalDescription = document.getElementById('offer-modal-description');
+      const esc = (s) => String(s || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+      function openModal(offer) {
+        if (offer.image) {
+          modalImage.src = offer.image;
+          modalImage.alt = offer.title || '';
+          modalImage.style.display = 'block';
+        } else {
+          modalImage.style.display = 'none';
+        }
+        modalTitle.textContent = offer.title || '';
+        modalDescription.textContent = offer.description || '';
+        overlay.classList.add('is-open');
+      }
+
+      function closeModal() {
+        overlay.classList.remove('is-open');
+      }
+
+      document.getElementById('offer-modal-close').addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+      });
+
+      try {
+        const res = await fetch('data/offers.json', { cache: 'no-store' });
+        const offers = await res.json();
+        if (!Array.isArray(offers) || offers.length === 0) {
+          emptyEl.style.display = 'block';
+          return;
+        }
+        listEl.innerHTML = offers.map((offer, i) => `
+          <div class="promo-card" data-index="${i}">
+            <button class="offer-admin-remove" data-index="${i}">Remove</button>
+            ${offer.image ? `<img src="${esc(offer.image)}" alt="${esc(offer.title)}" style="width:100%; max-height:220px; object-fit:cover; border-radius: var(--radius-sm); margin-bottom: var(--space-sm);">` : ''}
+            <div class="offer-card-header">
+              <h3>${esc(offer.title)}</h3>
+            </div>
+          </div>
+        `).join('');
+        listEl.querySelectorAll('.promo-card').forEach((card) => {
+          card.addEventListener('click', () => {
+            openModal(offers[Number(card.dataset.index)]);
+          });
+        });
+      } catch (err) {
+        emptyEl.textContent = 'Unable to load offers right now.';
+        emptyEl.style.display = 'block';
+      }
+    })();
+  </script>
 </body>
 </html>
