@@ -7,174 +7,46 @@
   <title>Admin | Optiically Your's</title>
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    .admin-wrap { max-width: 720px; margin: 0 auto; padding: var(--space-3xl) var(--space-md); }
-    .admin-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: var(--space-xl); margin-bottom: var(--space-xl); }
+    .admin-wrap { max-width: 420px; margin: 0 auto; padding: var(--space-3xl) var(--space-md); }
+    .admin-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: var(--space-xl); }
     .admin-field { margin-bottom: var(--space-md); }
     .admin-field label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--gray-600); margin-bottom: var(--space-xs); }
-    .admin-field input, .admin-field textarea {
+    .admin-field input {
       width: 100%; padding: var(--space-sm) var(--space-md); border: 1px solid var(--gray-200);
       border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 0.95rem; box-sizing: border-box;
     }
-    .admin-field textarea { min-height: 80px; resize: vertical; }
-    .offer-row { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-md); padding: var(--space-md) 0; border-bottom: 1px solid var(--gray-100); }
-    .offer-row:last-child { border-bottom: none; }
-    .offer-row-remove { background: none; border: 1px solid var(--red); color: var(--red); border-radius: var(--radius-sm); padding: var(--space-xs) var(--space-md); cursor: pointer; font-size: 0.85rem; white-space: nowrap; }
-    .offer-row-remove:hover { background: var(--red); color: var(--white); }
     .admin-status { margin-top: var(--space-md); font-size: 0.9rem; }
     .admin-status.error { color: var(--red); }
-    .admin-status.ok { color: #2e7d32; }
   </style>
 </head>
 <body>
 
   <div class="admin-wrap">
-    <h1 style="font-family: var(--font-serif); margin-bottom: var(--space-xl);">Offers Admin</h1>
-
-    <!-- ======== LOGIN GATE ======== -->
-    <div class="admin-card" id="login-card">
+    <h1 style="font-family: var(--font-serif); margin-bottom: var(--space-xl);">Admin Login</h1>
+    <div class="admin-card">
       <div class="admin-field">
         <label for="admin-key-input">Admin Key</label>
         <input type="password" id="admin-key-input" placeholder="Enter admin key">
       </div>
-      <button class="btn btn-primary" id="login-btn">Unlock</button>
+      <button class="btn btn-primary" id="login-btn">Unlock Edit Mode</button>
       <p class="admin-status error" id="login-error" style="display:none;"></p>
-    </div>
-
-    <!-- ======== ADMIN PANEL (hidden until unlocked) ======== -->
-    <div id="panel" style="display:none;">
-      <div class="admin-card">
-        <h3 style="margin-top:0;">Current Offers</h3>
-        <div id="offers-current"></div>
-        <p id="offers-current-empty" style="display:none; color: var(--gray-400);">No offers yet.</p>
-      </div>
-
-      <div class="admin-card">
-        <h3 style="margin-top:0;">Add Offer</h3>
-        <div class="admin-field">
-          <label for="new-tag">Tag (optional)</label>
-          <input type="text" id="new-tag" placeholder="e.g. Seasonal Curation">
-        </div>
-        <div class="admin-field">
-          <label for="new-title">Title *</label>
-          <input type="text" id="new-title" placeholder="e.g. The Designer Double">
-        </div>
-        <div class="admin-field">
-          <label for="new-description">Description</label>
-          <textarea id="new-description" placeholder="Offer details..."></textarea>
-        </div>
-        <div class="admin-field">
-          <label for="new-link">Link (optional)</label>
-          <input type="text" id="new-link" placeholder="e.g. products.html">
-        </div>
-        <div class="admin-field">
-          <label for="new-link-text">Link Text (optional)</label>
-          <input type="text" id="new-link-text" placeholder="e.g. Explore Frames">
-        </div>
-        <button class="btn btn-outline" id="add-btn">Add to List</button>
-      </div>
-
-      <button class="btn btn-primary" id="save-btn">Save Changes</button>
-      <p class="admin-status" id="save-status"></p>
     </div>
   </div>
 
   <script>
-    let adminKey = '';
-    let offers = [];
-
-    const loginCard = document.getElementById('login-card');
-    const panel = document.getElementById('panel');
+    const ADMIN_KEY = '181275';
     const loginError = document.getElementById('login-error');
-    const currentList = document.getElementById('offers-current');
-    const currentEmpty = document.getElementById('offers-current-empty');
-    const saveStatus = document.getElementById('save-status');
 
-    const esc = (s) => String(s || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-    function renderOffers() {
-      if (offers.length === 0) {
-        currentList.innerHTML = '';
-        currentEmpty.style.display = 'block';
-        return;
-      }
-      currentEmpty.style.display = 'none';
-      currentList.innerHTML = offers.map((offer, i) => `
-        <div class="offer-row">
-          <div>
-            <strong>${esc(offer.title)}</strong>${offer.tag ? ` — <em>${esc(offer.tag)}</em>` : ''}
-            <div style="color: var(--gray-600); font-size: 0.9rem;">${esc(offer.description)}</div>
-          </div>
-          <button class="offer-row-remove" data-index="${i}">Remove</button>
-        </div>
-      `).join('');
-      currentList.querySelectorAll('.offer-row-remove').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          offers.splice(Number(btn.dataset.index), 1);
-          renderOffers();
-        });
-      });
-    }
-
-    async function loadOffers() {
-      const res = await fetch('data/offers.json', { cache: 'no-store' });
-      offers = await res.json();
-      if (!Array.isArray(offers)) offers = [];
-      renderOffers();
-    }
-
-    document.getElementById('login-btn').addEventListener('click', async () => {
+    document.getElementById('login-btn').addEventListener('click', () => {
       const key = document.getElementById('admin-key-input').value.trim();
       if (!key) return;
-      adminKey = key;
-      loginError.style.display = 'none';
-      try {
-        await loadOffers();
-        loginCard.style.display = 'none';
-        panel.style.display = 'block';
-      } catch (err) {
-        loginError.textContent = 'Failed to load offers.';
+      if (key !== ADMIN_KEY) {
+        loginError.textContent = 'Incorrect admin key.';
         loginError.style.display = 'block';
-      }
-    });
-
-    document.getElementById('add-btn').addEventListener('click', () => {
-      const title = document.getElementById('new-title').value.trim();
-      if (!title) {
-        alert('Title is required.');
         return;
       }
-      offers.push({
-        tag: document.getElementById('new-tag').value.trim(),
-        title,
-        description: document.getElementById('new-description').value.trim(),
-        link: document.getElementById('new-link').value.trim(),
-        linkText: document.getElementById('new-link-text').value.trim(),
-      });
-      renderOffers();
-      document.getElementById('new-tag').value = '';
-      document.getElementById('new-title').value = '';
-      document.getElementById('new-description').value = '';
-      document.getElementById('new-link').value = '';
-      document.getElementById('new-link-text').value = '';
-    });
-
-    document.getElementById('save-btn').addEventListener('click', async () => {
-      saveStatus.className = 'admin-status';
-      saveStatus.textContent = 'Saving...';
-      try {
-        const res = await fetch('/api/save-offers', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-          body: JSON.stringify({ offers }),
-        });
-        const body = await res.json();
-        if (!res.ok) throw new Error(body.error || 'Save failed');
-        saveStatus.className = 'admin-status ok';
-        saveStatus.textContent = 'Saved. The live site will update shortly after redeploy.';
-      } catch (err) {
-        saveStatus.className = 'admin-status error';
-        saveStatus.textContent = err.message;
-      }
+      localStorage.setItem('adminKey', key);
+      location.href = 'index.html';
     });
   </script>
 </body>

@@ -6,6 +6,39 @@
   <meta name="description" content="Optiically Your's Offers — Exclusive rewards, seasonal promotions, referral bonuses, and available vouchers for premium eyewear.">
   <title>Offers | Optiically Your's</title>
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    #offers-list.promo-grid { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) {
+      #offers-list.promo-grid { grid-template-columns: 1fr; }
+    }
+    .promo-card { cursor: pointer; position: relative; }
+    .offer-admin-remove {
+      display: none; position: absolute; top: 8px; right: 8px; z-index: 5;
+      background: #C0392B; color: #fff; border: none; border-radius: 4px;
+      padding: 3px 9px; font-size: 12px; cursor: pointer;
+    }
+    body.admin-edit-mode .offer-admin-remove { display: inline-block; }
+    .offer-card-header { display: flex; justify-content: space-between; align-items: center; gap: var(--space-md); }
+    .offer-card-header h3 { margin: 0; }
+
+    .offer-modal-overlay {
+      display: none;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+      z-index: 1000; align-items: center; justify-content: center; padding: var(--space-md);
+    }
+    .offer-modal-overlay.is-open { display: flex; }
+    .offer-modal {
+      background: var(--white); border-radius: var(--radius-lg);
+      max-width: 520px; width: 100%; max-height: 85vh; overflow-y: auto;
+      padding: var(--space-xl); position: relative;
+    }
+    .offer-modal img { width: 100%; max-height: 280px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: var(--space-md); }
+    .offer-modal-close {
+      position: absolute; top: var(--space-md); right: var(--space-md);
+      background: none; border: none; font-size: 1.6rem; line-height: 1;
+      cursor: pointer; color: var(--gray-600);
+    }
+  </style>
 </head>
 <body>
 
@@ -31,17 +64,9 @@
   </nav>
 
   <!-- ======== OFFERS HERO ======== -->
-  <section class="offers-hero">
+  <section class="products-hero">
     <div class="container">
-      <div class="fade-in-left">
-        <p class="section-label">Exclusive Rewards</p>
-        <h1 class="offers-hero-title">
-          The Visionary<br><span class="gold">Advantage</span>
-        </h1>
-      </div>
-      <div class="fade-in-right">
-        <p class="section-subtitle">Curated savings for the discerning eye. Our offers combine the precision of clinical care with the luxury of high-end eyewear.</p>
-      </div>
+      <h1 class="section-title fade-in" style="font-size: clamp(2.4rem, 4.5vw, 3.2rem);">Offers</h1>
     </div>
   </section>
 
@@ -53,12 +78,53 @@
     </div>
   </section>
 
+  <!-- ======== OFFER MODAL ======== -->
+  <div class="offer-modal-overlay" id="offer-modal-overlay">
+    <div class="offer-modal">
+      <button class="offer-modal-close" id="offer-modal-close" aria-label="Close">&times;</button>
+      <img id="offer-modal-image" style="display:none;">
+      <h3 id="offer-modal-title"></h3>
+      <p id="offer-modal-description"></p>
+    </div>
+  </div>
+
   <script src="js/main.js"></script>
+  <script src="js/admin-edit.js"></script>
   <script>
     (async function loadOffers() {
       const listEl = document.getElementById('offers-list');
       const emptyEl = document.getElementById('offers-empty');
+      const overlay = document.getElementById('offer-modal-overlay');
+      const modalImage = document.getElementById('offer-modal-image');
+      const modalTitle = document.getElementById('offer-modal-title');
+      const modalDescription = document.getElementById('offer-modal-description');
       const esc = (s) => String(s || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+      function openModal(offer) {
+        if (offer.image) {
+          modalImage.src = offer.image;
+          modalImage.alt = offer.title || '';
+          modalImage.style.display = 'block';
+        } else {
+          modalImage.style.display = 'none';
+        }
+        modalTitle.textContent = offer.title || '';
+        modalDescription.textContent = offer.description || '';
+        overlay.classList.add('is-open');
+      }
+
+      function closeModal() {
+        overlay.classList.remove('is-open');
+      }
+
+      document.getElementById('offer-modal-close').addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+      });
+
       try {
         const res = await fetch('data/offers.json', { cache: 'no-store' });
         const offers = await res.json();
@@ -66,14 +132,20 @@
           emptyEl.style.display = 'block';
           return;
         }
-        listEl.innerHTML = offers.map((offer) => `
-          <div class="promo-card">
-            ${offer.tag ? `<span class="promo-tag">${esc(offer.tag)}</span>` : ''}
-            <h3>${esc(offer.title)}</h3>
-            <p style="margin-top: var(--space-sm);">${esc(offer.description)}</p>
-            ${offer.link ? `<a href="${esc(offer.link)}" class="btn btn-primary" style="margin-top: var(--space-xl);">${esc(offer.linkText || 'Learn More')}</a>` : ''}
+        listEl.innerHTML = offers.map((offer, i) => `
+          <div class="promo-card" data-index="${i}">
+            <button class="offer-admin-remove" data-index="${i}">Remove</button>
+            ${offer.image ? `<img src="${esc(offer.image)}" alt="${esc(offer.title)}" style="width:100%; max-height:220px; object-fit:cover; border-radius: var(--radius-sm); margin-bottom: var(--space-sm);">` : ''}
+            <div class="offer-card-header">
+              <h3>${esc(offer.title)}</h3>
+            </div>
           </div>
         `).join('');
+        listEl.querySelectorAll('.promo-card').forEach((card) => {
+          card.addEventListener('click', () => {
+            openModal(offers[Number(card.dataset.index)]);
+          });
+        });
       } catch (err) {
         emptyEl.textContent = 'Unable to load offers right now.';
         emptyEl.style.display = 'block';
