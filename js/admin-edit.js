@@ -225,6 +225,11 @@
       img.alt = '';
       img.src = dataUrl;
       container.appendChild(img);
+      // The homepage's auto-rotation script only cycles slides that existed at page
+      // load, so a freshly added slide would otherwise sit invisible until save+reload.
+      // Make it active immediately so there's visible confirmation it was added.
+      container.querySelectorAll('img.hero-slide').forEach((s) => s.classList.remove('is-active'));
+      img.classList.add('is-active');
       renderSlideList();
     });
     overlay.querySelector('#admin-edit-slide-close').addEventListener('click', () => overlay.remove());
@@ -471,6 +476,26 @@
     // one we inject ourselves (already stripped above) — any other is an extension.
     const head = clone.querySelector('head');
     if (head) head.querySelectorAll('style[id]').forEach((el) => el.remove());
+    // Custom-cursor extensions (e.g. Sweezy) tag hovered elements with a class and an
+    // inline cursor:url(data:...) style. This site never authors inline cursor styles
+    // or classes matching this pattern, so stripping both is always safe.
+    clone.querySelectorAll('[class*="cursor-hover"], [class*="sweezy" i]').forEach((el) => {
+      Array.from(el.classList).forEach((c) => {
+        if (/cursor-hover|sweezy/i.test(c)) el.classList.remove(c);
+      });
+      if (!el.classList.length) el.removeAttribute('class');
+    });
+    clone.querySelectorAll('[style*="cursor"]').forEach((el) => {
+      const cleaned = el.getAttribute('style')
+        .replace(/^\s*null\s*;?/i, '')
+        .replace(/cursor\s*:[^;]*;?/gi, '')
+        .trim();
+      if (cleaned) {
+        el.setAttribute('style', cleaned);
+      } else {
+        el.removeAttribute('style');
+      }
+    });
   }
 
   // Reset transient runtime state (scroll animations, nav scroll shadow, hero rotation)
