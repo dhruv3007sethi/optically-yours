@@ -6,7 +6,7 @@
 // secret and can't safely live in source. Everything else below is hardcoded
 // to match the values already public in the client-side admin code.
 const ADMIN_KEY = '181275';
-const GITHUB_OWNER = 'dhruv3007sethi';
+const GITHUB_OWNER = 'opticallyyoursthane-crypto';
 const GITHUB_REPO = 'optically-yours';
 const GITHUB_BRANCH = 'main';
 
